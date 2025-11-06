@@ -1,3 +1,11 @@
+import Hero from "../components/hero.section";
+import ShopCategory from "../components/shop.category";
+
 export default function Home() {
-  return <div className="">hi this is home</div>;
+  return (
+    <div>
+      <Hero />
+      <ShopCategory />
+    </div>
+  );
 }
