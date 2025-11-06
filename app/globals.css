@@ -3,6 +3,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /*custom colors*/
+  --primary: #2d5016;
+  --secondary: #f5f5dc;
+  --light-green: #7a9b57;
+  --black: #000000;
+  --white: #ffffff;
 }
 
 @theme inline {
@@ -10,6 +17,13 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /*custom color variable*/
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-light-green: var(--light-green);
+  --color-black: var(--black);
+  --color-white: var(--white);
 }
 
 @media (prefers-color-scheme: dark) {
