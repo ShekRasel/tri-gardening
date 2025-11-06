@@ -39,7 +39,9 @@ const Footer = () => {
             <AiFillTwitterCircle size={23} />
             <IoLogoYoutube size={23} />
           </div>
-          <h2 className="text-sm lg:text-base">supprot@trigardening.com</h2>
+          <h2 className="text-sm lg:text-base wrap-break-word">
+            supprot@trigardening.com
+          </h2>
           <h2 className="text-sm lg:text-base">Call Now</h2>
           <h3 className="text-sm lg:text-base">+8801234567890</h3>
         </div>

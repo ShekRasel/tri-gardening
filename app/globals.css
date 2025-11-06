@@ -58,7 +58,7 @@ body {
 
 @media (max-width: 480px) {
   .responsive {
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
