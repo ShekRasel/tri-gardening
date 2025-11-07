@@ -6,13 +6,14 @@ import { AddToCart } from "../ui/buttons/add.to.cart.button";
 import Link from "next/link";
 
 const ProductCard = ({ image, name, tag, price, rating }) => {
-  const [isHovered, setIsHoverd] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <div
-      className="bg-white rounded-2xl cursor-pointer overflow-hidden relative"
-      onMouseLeave={() => setIsHoverd(false)}
+      className="bg-white rounded-2xl cursor-pointer overflow-hidden relative shadow"
+      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => setIsHovered(true)}
     >
-      <div onMouseEnter={() => setIsHoverd(true)}>
+      <div>
         {/* Product Image */}
         <div className="h-62 w-full">
           <Image
@@ -42,7 +43,7 @@ const ProductCard = ({ image, name, tag, price, rating }) => {
       {/* detials showing buttons */}
       <div
         className={`w-full absolute bottom-0  h-full bg-white/70 transition-all ease-in-out duration-500 ${
-          isHovered ? "-translate-y" : "translate-y-full"
+          isHovered ? "translate-y-0" : "translate-y-full"
         }`}
       >
         <div className="px-6">
