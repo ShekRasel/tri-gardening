@@ -26,7 +26,7 @@ const ShopCategory = () => {
     },
   ];
   return (
-    <div className="mt-8 space-y-6 responsive">
+    <div className="space-y-6 lg:space-y-10 responsive">
       <h1 className="text-primary text-2xl md:text-3xl text-center font-semibold">
         Shop by Category
       </h1>

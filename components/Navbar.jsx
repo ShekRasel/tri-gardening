@@ -32,7 +32,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-primary fixed z-50 w-full flex items-center  justify-between py-2 lg:py-3 shadow-xl responsive">
+    <nav className="bg-primary fixed top-0 z-50 w-full flex items-center  justify-between py-2 lg:py-3 shadow-xl responsive">
       {/* =================== left side/logo section  ================== */}
       <Link href={"/"}>
         <div className="flex items-center">

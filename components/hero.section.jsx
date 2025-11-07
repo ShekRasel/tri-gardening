@@ -1,16 +1,16 @@
 import Image from "next/image";
 import React from "react";
-import PrimaryButton from "./ui/primary.button";
+import PrimaryButton from "./ui/buttons/primary.button";
 
 const Hero = () => {
   return (
-    <div className="relative text-white">
+    <div className="relative h-[300px] md:h-[500px] 2xl:h-[650px] text-white mt-15 lg:mt-18">
       <Image
         src={"/images/hero-image.jpg"}
-        height={1000}
-        width={1000}
+        fill
         alt="hero-image"
-        className="w-full h-[300px] md:h-[500px] 2xl:h-[650px]"
+        priority
+        className="object-"
       />
       <div className="absolute  left-8 top-1/2 -translate-y-1/2 md:left-10 2xl:left-44 space-y-4">
         <h1 className="text-2xl md:text-3xl 2xl:text-4xl font-semibold">
