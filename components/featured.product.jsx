@@ -4,18 +4,15 @@ import { plants } from "../data/featured-product/data";
 import ProductCard from "./cards/product.card";
 import { MdOutlineNavigateNext, MdNavigateBefore } from "react-icons/md";
 
-const FeaturedProduct = () => {
+const FeaturedProduct = ({}) => {
   const maxCount = plants.length;
   const [count, setCount] = useState(0);
-
   const [cardsPerView, setCardsPerView] = useState(1);
-
-  // Detect screen width and set cardsPerView dynamically
   useEffect(() => {
     const updateCardsPerView = () => {
       if (window.innerWidth >= 1024) setCardsPerView(4);
-      else if (window.innerWidth >= 640) setCardsPerView(2);
-      else setCardsPerView(1);
+      else if (window.innerWidth >= 640) setCardsPerView(6);
+      else setCardsPerView(8);
     };
     updateCardsPerView();
     window.addEventListener("resize", updateCardsPerView);
@@ -24,7 +21,11 @@ const FeaturedProduct = () => {
 
   const goRight = () => {
     if (count < maxCount - 1) {
-      setCount((prev) => prev + 1);
+      if (count === cardsPerView) {
+        setCount(0);
+      } else {
+        setCount((prev) => prev + 1);
+      }
     } else {
       setCount(0);
     }
@@ -34,7 +35,11 @@ const FeaturedProduct = () => {
     if (count > 0) {
       setCount((prev) => prev - 1);
     } else {
-      setCount(maxCount - 1);
+      if (cardsPerView === 8) {
+        setCount(maxCount - 1);
+      } else {
+        setCount(cardsPerView);
+      }
     }
   };
 
@@ -42,10 +47,10 @@ const FeaturedProduct = () => {
     <div className="bg-secondary relative">
       <div className="responsive py-8 space-y-6 lg:space-y-10">
         <h1 className="text-2xl lg:text-3xl font-semibold text-primary text-center">
-          Featured Prodcut
+          Featured Products
         </h1>
 
-        <div className="flex overflow-hidden">
+        <div className="flex overflow-hidden py-4">
           {plants.map((plant, id) => (
             <div
               key={id}
