@@ -15,7 +15,7 @@ const ProductCard = ({ image, name, tag, price, rating }) => {
     >
       <div>
         {/* Product Image */}
-        <div className="h-62 w-full">
+        <div className="h-44 md:h-56 w-full">
           <Image
             src={image}
             alt={name}
@@ -27,17 +27,23 @@ const ProductCard = ({ image, name, tag, price, rating }) => {
 
         {/* Product Info */}
         <div className="p-4 xl:p-6">
-          <h2 className="text-base font-semibold text-primary">{name}</h2>
-          <h2 className="text-gray-400 tracking-wide text-sm font-semibold">
+          <h2 className="text-sm md:text-base font-semibold text-primary">
+            {name}
+          </h2>
+          <h2 className="text-gray-400 tracking-wide text-xs  md:text-sm font-semibold">
             {tag}
           </h2>
-          <p className="text-orange text-xl font-bold mt-3">৳ {price}</p>
-          <div className="text-sm text-primary mt-4">⭐⭐⭐⭐⭐ {rating}</div>
+          <p className="text-orange text-lg md:text-xl font-bold mt-3">
+            ৳ {price}
+          </p>
+          <div className="text-sm text-primary mt-2 md:mt-4 font-semibold">
+            ⭐⭐⭐⭐⭐ ({rating})
+          </div>
         </div>
       </div>
 
       <div className="p-4 xl:p-6">
-        <AddToCart>Add to Cart</AddToCart>
+        <AddToCart className="text-sm md:text-base">Add to Cart</AddToCart>
       </div>
 
       {/* detials showing buttons */}
@@ -52,7 +58,7 @@ const ProductCard = ({ image, name, tag, price, rating }) => {
         <div>
           <Link
             href={"/"}
-            className="bg-[#7A9B57] text-white w-full text-base py-4 xl:py-5 cursor-pointer bottom-0 text-center absolute font-semibold tracking-wider"
+            className="bg-[#7A9B57] text-white w-full text-base py-4 xl:py-5 cursor-pointer bottom-0 text-center absolute font-semibold tracking-wider rounded-b-2xl"
           >
             View Details
           </Link>
