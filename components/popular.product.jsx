@@ -61,13 +61,7 @@ const PopularProduct = () => {
               className={`min-w-full sm:min-w-[50%] lg:min-w-[25%] transition-all ease-out duration-500 px-8 lg:px-4`}
               style={{ transform: `translateX(-${count * 100}%)` }}
             >
-              <ProductCard
-                image={plant.image}
-                name={plant.name}
-                tag={plant.tag}
-                price={plant.price}
-                rating={plant.rating}
-              />
+              <ProductCard item={plant} />
             </div>
           ))}
         </div>

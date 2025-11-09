@@ -4,7 +4,7 @@ import { plants } from "../data/featured-product/data";
 import ProductCard from "./cards/product.card";
 import { MdOutlineNavigateNext, MdNavigateBefore } from "react-icons/md";
 
-const FeaturedProduct = ({}) => {
+const FeaturedProduct = () => {
   const maxCount = plants.length;
   const [count, setCount] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(1);
@@ -51,19 +51,13 @@ const FeaturedProduct = ({}) => {
         </h1>
 
         <div className="flex overflow-hidden py-4">
-          {plants.map((plant, id) => (
+          {plants.map((plant) => (
             <div
-              key={id}
+              key={plant.id}
               className={`min-w-full px-8 lg:px-4 sm:min-w-[50%] lg:min-w-[25%] transition-all ease-out duration-500`}
               style={{ transform: `translateX(-${count * 100}%)` }}
             >
-              <ProductCard
-                image={plant.image}
-                name={plant.name}
-                tag={plant.tag}
-                price={plant.price}
-                rating={plant.rating}
-              />
+              <ProductCard item={plant} />
             </div>
           ))}
         </div>

@@ -263,14 +263,7 @@ const ProductsPage = () => {
             <>
               <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-6 mt-6">
                 {visibleProducts.map((item) => (
-                  <ProductCard
-                    key={item.id}
-                    image={item.image}
-                    name={item.name}
-                    tag={item.tag}
-                    price={item.price}
-                    rating={item.rating}
-                  />
+                  <ProductCard key={item.id} item={item} />
                 ))}
               </div>
 

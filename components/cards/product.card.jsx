@@ -5,8 +5,15 @@ import React, { useState } from "react";
 import { AddToCart } from "../ui/buttons/add.to.cart.button";
 import Link from "next/link";
 
-const ProductCard = ({ image, name, tag, price, rating }) => {
+const ProductCard = ({ item }) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const image = item?.image;
+  const name = item?.name;
+  const tag = item?.tag;
+  const price = item?.price;
+  const rating = item?.rating;
+
   return (
     <div
       className="bg-white rounded-2xl cursor-pointer overflow-hidden relative shadow"
@@ -41,7 +48,9 @@ const ProductCard = ({ image, name, tag, price, rating }) => {
       </div>
 
       <div className="p-4 xl:p-6">
-        <AddToCart className="text-sm md:text-base">Add to Cart</AddToCart>
+        <AddToCart className="text-sm md:text-base" item={item}>
+          Add to Cart
+        </AddToCart>
       </div>
 
       {/* detials showing buttons */}
@@ -51,11 +60,13 @@ const ProductCard = ({ image, name, tag, price, rating }) => {
         }`}
       >
         <div className="px-6">
-          <AddToCart className={"mt-16"}>Add to Cart</AddToCart>
+          <AddToCart className={"mt-16"} item={item}>
+            Add to Cart
+          </AddToCart>
         </div>
         <div>
           <Link
-            href={"/"}
+            href={`product-details/${item.id}`}
             className="bg-light-green text-white w-full text-base py-4 xl:py-5 cursor-pointer bottom-0 text-center absolute font-semibold tracking-wider rounded-b-2xl"
           >
             View Details
