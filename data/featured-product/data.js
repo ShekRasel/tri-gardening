@@ -1,4 +1,4 @@
-export const plants = [
+export const featuredProducts = [
   {
     id: 25,
     image: "/images/featured-product/Monstera Deliciosa.jpg",

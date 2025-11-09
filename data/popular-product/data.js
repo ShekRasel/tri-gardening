@@ -1,4 +1,4 @@
-export const plants = [
+export const popularProducts = [
   {
     id: 33,
     image: "/images/popular-product/Boston Fern.avif",
