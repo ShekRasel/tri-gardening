@@ -1,6 +1,6 @@
 export const plants = [
   {
-    id: 1,
+    id: 25,
     image: "/images/featured-product/Monstera Deliciosa.jpg",
     name: "Monstera Deliciosa",
     tag: "Indoor Plant",
@@ -8,7 +8,7 @@ export const plants = [
     rating: 24,
   },
   {
-    id: 2,
+    id: 26,
     image: "/images/featured-product/Organic Compost Fertilizer.jpg",
     name: "Organic Compost Fertilizer",
     tag: "Fertilizer",
@@ -16,7 +16,7 @@ export const plants = [
     rating: 12,
   },
   {
-    id: 3,
+    id: 27,
     image: "/images/featured-product/Pruning Shears.jpg",
     name: "Pruning Shears",
     tag: "Equipment",
@@ -24,7 +24,7 @@ export const plants = [
     rating: 34,
   },
   {
-    id: 4,
+    id: 28,
     image: "/images/featured-product/Snake Plant.jpg",
     name: "Snake Plant",
     tag: "Indoor Plant",
@@ -32,7 +32,7 @@ export const plants = [
     rating: 29,
   },
   {
-    id: 5,
+    id: 29,
     image: "/images/featured-product/spider plant.avif",
     name: "Spider Plant",
     tag: "Air Purifier",
@@ -40,7 +40,7 @@ export const plants = [
     rating: 42,
   },
   {
-    id: 6,
+    id: 30,
     image: "/images/featured-product/Bamboo plant.jpg",
     name: "Bamboo Palm",
     tag: "Indoor Palm",
@@ -48,7 +48,7 @@ export const plants = [
     rating: 31,
   },
   {
-    id: 7,
+    id: 31,
     image: "/images/featured-product/Rubber plant.avif",
     name: "Rubber Plant",
     tag: "Decorative Plant",
@@ -56,7 +56,7 @@ export const plants = [
     rating: 64,
   },
   {
-    id: 8,
+    id: 32,
     image: "/images/featured-product/Boston Fern.avif",
     name: "Boston Fern",
     tag: "Hanging Plant",

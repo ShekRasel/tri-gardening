@@ -1,6 +1,6 @@
 export const plants = [
   {
-    id: 1,
+    id: 33,
     image: "/images/popular-product/Boston Fern.avif",
     name: "Peace Lily",
     tag: "Flowering Indoor Plant",
@@ -8,7 +8,7 @@ export const plants = [
     rating: 38,
   },
   {
-    id: 2,
+    id: 34,
     image: "/images/popular-product/Rubber plant.avif",
     name: "Aloe Vera",
     tag: "Medicinal Plant",
@@ -16,7 +16,7 @@ export const plants = [
     rating: 47,
   },
   {
-    id: 3,
+    id: 35,
     image: "/images/popular-product/Bamboo plant.jpg",
     name: "Money Tree",
     tag: "Lucky Plant",
@@ -24,7 +24,7 @@ export const plants = [
     rating: 55,
   },
   {
-    id: 4,
+    id: 36,
     image: "/images/popular-product/spider plant.avif",
     name: "ZZ Plant",
     tag: "Low Maintenance",
@@ -32,7 +32,7 @@ export const plants = [
     rating: 29,
   },
   {
-    id: 5,
+    id: 37,
     image: "/images/popular-product/Snake Plant.jpg",
     name: "Golden Pothos",
     tag: "Air Purifier",
@@ -40,7 +40,7 @@ export const plants = [
     rating: 33,
   },
   {
-    id: 6,
+    id: 38,
     image: "/images/popular-product/Pruning Shears.jpg",
     name: "Mini Watering Can",
     tag: "Gardening Tool",
@@ -48,7 +48,7 @@ export const plants = [
     rating: 22,
   },
   {
-    id: 7,
+    id: 39,
     image: "/images/popular-product/Organic Compost Fertilizer.jpg",
     name: "Coco Peat Mix",
     tag: "Soil & Fertilizer",
@@ -56,7 +56,7 @@ export const plants = [
     rating: 41,
   },
   {
-    id: 8,
+    id: 40,
     image: "/images/popular-product/Monstera Deliciosa.jpg",
     name: "Philodendron Birkin",
     tag: "Decorative Indoor Plant",
