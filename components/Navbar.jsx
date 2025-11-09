@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { HiMagnifyingGlass } from "react-icons/hi2";
-import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { CgProfile } from "react-icons/cg";
 import { IoCall } from "react-icons/io5";
 import SlidePanel from "./slide.panel";
+import CartBadge from "./cart.bedge";
 
 const Navbar = () => {
   const links = [
@@ -70,12 +70,10 @@ const Navbar = () => {
         </div>
 
         {/* cart */}
-        <Link href={"/cart"} className="hidden lg:block">
-          <PiShoppingCartSimpleFill className="text-white" size={23} />
-        </Link>
+        <CartBadge />
 
         {/* user profile/dashboard */}
-        <Link href={"/dashboard"} className="hidden lg:block">
+        <Link href={"/"} className="hidden lg:block">
           <CgProfile className="text-white" size={23} />
         </Link>
       </div>
