@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { plants } from "../data/featured-product/data";
+import { featuredProducts } from "../data/featured-product/data";
 import ProductCard from "./cards/product.card";
 import { MdOutlineNavigateNext, MdNavigateBefore } from "react-icons/md";
 
 const FeaturedProduct = () => {
-  const maxCount = plants.length;
+  const maxCount = featuredProducts.length;
   const [count, setCount] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(1);
   useEffect(() => {
@@ -51,7 +51,7 @@ const FeaturedProduct = () => {
         </h1>
 
         <div className="flex overflow-hidden py-4">
-          {plants.map((plant) => (
+          {featuredProducts.map((plant) => (
             <div
               key={plant.id}
               className={`min-w-full px-8 lg:px-4 sm:min-w-[50%] lg:min-w-[25%] transition-all ease-out duration-500`}

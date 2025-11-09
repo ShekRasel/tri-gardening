@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./cards/product.card";
 import { MdOutlineNavigateNext, MdNavigateBefore } from "react-icons/md";
-import { plants } from "../data/popular-product/data";
+import { popularProducts } from "../data/popular-product/data";
 
 const PopularProduct = () => {
-  const maxCount = plants.length;
+  const maxCount = popularProducts.length;
   const [count, setCount] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(1);
   useEffect(() => {
@@ -55,7 +55,7 @@ const PopularProduct = () => {
         </p>
 
         <div className="flex overflow-hidden py-4">
-          {plants.map((plant, id) => (
+          {popularProducts.map((plant, id) => (
             <div
               key={id}
               className={`min-w-full sm:min-w-[50%] lg:min-w-[25%] transition-all ease-out duration-500 px-8 lg:px-4`}
