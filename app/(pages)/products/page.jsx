@@ -6,14 +6,14 @@ import FilterProduct from "../../../components/filter.product";
 import FilterSlider from "../../../components/slider/product.filter.slider";
 import { products } from "../../../data/all-products/data";
 import { useFilterStore } from "../../../app/zustand-store/filterStore";
+import { allProducts } from "../../../helpers/helper";
 
 const ProductsPage = () => {
   const categories = Object.keys(products);
-  const allProducts = Object.values(products).flat();
+  // const allProducts = Object.values(products).flat();
   const [activeCategory, setActiveCategory] = useState("Home");
   const [visibleCount, setVisibleCount] = useState(8);
   const [isSortOpen, setIsSortOpen] = useState(false);
-
   const {
     selectedCategories,
     selectedSizes,

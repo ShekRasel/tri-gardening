@@ -8,14 +8,8 @@ import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const CartPage = () => {
-  const {
-    items,
-    removeCart,
-    updateQuantity,
-    clearCart,
-    getTotalItems,
-    getTotalPrice,
-  } = useCartStore();
+  const { items, removeCart, updateQuantity, getTotalItems, getTotalPrice } =
+    useCartStore();
 
   const deliveryCharge = 100;
 
@@ -86,6 +80,7 @@ const CartPage = () => {
                   </div>
                 </div>
 
+                {/* quantity handle */}
                 <div className="">
                   <h1 className="text-black ml-7 md:ml-5 text-xs md:text-sm pb-1 md:p-0">
                     Quantity

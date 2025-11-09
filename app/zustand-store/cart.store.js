@@ -14,18 +14,19 @@ export const useCartStore = create(
             (cartItem) => cartItem.id === item.id
           );
 
-          // Extract the highest price from the price range string
-          const priceRange = item.price;
-          const highestPrice = priceRange.includes("-")
-            ? parseInt(priceRange.split("-")[1].trim())
-            : parseInt(priceRange);
+          const finalQuantity = item.quantity || quantity;
 
           if (existingItem) {
-            toast.success(`Increased ${item.name} quantity!`);
+            toast.success(
+              `Increased ${item.name} quantity by ${finalQuantity}!`
+            );
             return {
               items: state.items.map((cartItem) =>
                 cartItem.id === item.id
-                  ? { ...cartItem, quantity: cartItem.quantity + quantity }
+                  ? {
+                      ...cartItem,
+                      quantity: cartItem.quantity + finalQuantity,
+                    }
                   : cartItem
               ),
             };
@@ -36,8 +37,7 @@ export const useCartStore = create(
                 ...state.items,
                 {
                   ...item,
-                  quantity,
-                  price: highestPrice,
+                  quantity: finalQuantity,
                 },
               ],
             };
