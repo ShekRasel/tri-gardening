@@ -14,7 +14,6 @@ const ProductsPage = () => {
   const [visibleCount, setVisibleCount] = useState(8);
   const [isSortOpen, setIsSortOpen] = useState(false);
 
-  // Get filter states from store
   const {
     selectedCategories,
     selectedSizes,
@@ -24,11 +23,8 @@ const ProductsPage = () => {
     setSortBy,
   } = useFilterStore();
 
-  // Helper function to get numeric price from price string
   const getNumericPrice = (priceString) => {
     if (typeof priceString === "number") return priceString;
-
-    // Handle price strings like "2000 - 3400" by taking the maximum price
     const prices = priceString
       .toString()
       .split("-")
@@ -36,26 +32,26 @@ const ProductsPage = () => {
     return prices.length > 1 ? prices[1] : prices[0];
   };
 
-  // Filter products based on active category and filters
+  // Filter products
   const filteredProducts = useMemo(() => {
     let filtered =
       activeCategory === "Home" ? allProducts : products[activeCategory] || [];
 
-    // Apply category filter (using tag property)
+    // Apply category filter
     if (selectedCategories.length > 0) {
       filtered = filtered.filter((product) =>
         selectedCategories.includes(product.tag)
       );
     }
 
-    // Apply size filter (only for products that have size property)
+    // Apply size filter
     if (selectedSizes.length > 0) {
       filtered = filtered.filter(
         (product) => product.size && selectedSizes.includes(product.size)
       );
     }
 
-    // Apply light requirement filter (only for products that have light property)
+    // Apply light requirement filter
     if (selectedLight.length > 0) {
       filtered = filtered.filter(
         (product) => product.light && selectedLight.includes(product.light)
@@ -81,38 +77,21 @@ const ProductsPage = () => {
     priceRange,
   ]);
 
-  // Sort products based on selected sort option
+  // Sort products
   const sortedAndFilteredProducts = useMemo(() => {
-    const sorted = [...filteredProducts];
-
     switch (sortBy) {
+      case "all":
+        return filteredProducts;
       case "popular":
-        // Sort by rating (highest first)
-        return sorted.sort((a, b) => b.rating - a.rating);
+        return filteredProducts.filter((product) => product.popular === true);
 
-      case "price-low-high":
-        // Sort by price (lowest first)
-        return sorted.sort(
-          (a, b) => getNumericPrice(a.price) - getNumericPrice(b.price)
-        );
-
-      case "price-high-low":
-        // Sort by price (highest first)
-        return sorted.sort(
-          (a, b) => getNumericPrice(b.price) - getNumericPrice(a.price)
-        );
-
-      case "name-a-z":
-        // Sort by name (A-Z)
-        return sorted.sort((a, b) => a.name.localeCompare(b.name));
-
-      case "name-z-a":
-        // Sort by name (Z-A)
-        return sorted.sort((a, b) => b.name.localeCompare(a.name));
+      case "non-popular":
+        return filteredProducts.filter((product) => product.popular === false);
 
       default:
-        return sorted;
+        break;
     }
+    return products;
   }, [filteredProducts, sortBy]);
 
   // Current products to show
@@ -125,11 +104,9 @@ const ProductsPage = () => {
 
   // Sort options
   const sortOptions = [
+    { value: "all", label: "All" },
     { value: "popular", label: "Popular" },
-    { value: "price-low-high", label: "Price: Low to High" },
-    { value: "price-high-low", label: "Price: High to Low" },
-    { value: "name-a-z", label: "Name: A to Z" },
-    { value: "name-z-a", label: "Name: Z to A" },
+    { value: "non-popular", label: "Non-Popular" },
   ];
 
   // Get current sort label
@@ -161,7 +138,7 @@ const ProductsPage = () => {
   }, [isSortOpen]);
 
   return (
-    <div className="bg-[#F3F3F3] min-h-screen border">
+    <div className="bg-light-white min-h-screen border">
       {/* top filter bar */}
       <div className="responsive mt-24 shadow bg-white space-y-6 pt-4 pb-4 sticky top-15 z-40">
         {/* category buttons */}
@@ -222,7 +199,7 @@ const ProductsPage = () => {
 
         <div className="pb-10 flex-1">
           {/* header with sort */}
-          <div className="w-full flex justify-between items-center sticky top-58 md:top-48 z-30 bg-white rounded-md p-4">
+          <div className="w-full flex justify-between items-center sticky top-68 md:top-48 z-30 bg-white rounded-md p-4">
             <div>
               <h1 className="font-semibold lg:text-lg text-primary">
                 {activeCategory === "Home" ? "All Products" : activeCategory}
@@ -234,12 +211,12 @@ const ProductsPage = () => {
             </div>
 
             {/* Sort Dropdown */}
-            <div className="relative sort-dropdown">
+            <div className="relative sort-dropdown text-sm md:text-base">
               <button
                 onClick={() => setIsSortOpen(!isSortOpen)}
-                className="border border-gray-400 rounded-md px-4 py-2 flex items-center gap-2 min-w-40 justify-between hover:border-gray-600 transition-colors"
+                className="border border-gray-300 rounded-md px-2 md:px-4 py-2 flex items-center gap-2 justify-between hover:border-gray-600 transition-colors"
               >
-                <span>Sort By: {currentSortLabel}</span>
+                <span>Sort By : {currentSortLabel}</span>
                 <svg
                   className={`w-4 h-4 transition-transform ${
                     isSortOpen ? "rotate-180" : ""
@@ -302,7 +279,7 @@ const ProductsPage = () => {
                 <div className="flex items-center justify-center mt-12">
                   <button
                     onClick={handleLoadMore}
-                    className="px-5 py-2 text-white rounded-md bg-light-green cursor-pointer hover:bg-light-green/90 transition-colors"
+                    className="px-5 py-3 text-white rounded-md bg-light-green cursor-pointer hover:bg-light-green/90 transition-colors"
                   >
                     Load More Products
                   </button>
@@ -318,7 +295,7 @@ const ProductsPage = () => {
                 </p>
                 <button
                   onClick={() => window.location.reload()}
-                  className="px-4 py-2 border border-gray-400 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
+                  className="px-4 py-2 bg-light-green text-white rounded-md shadow cursor-pointer"
                 >
                   Reset All Filters
                 </button>

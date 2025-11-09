@@ -6,6 +6,7 @@ export const useFilterStore = create((set) => ({
   selectedSizes: [],
   selectedLight: [],
   priceRange: [0, 10000],
+  sortBy: "all",
 
   // actions
   toggleCategory: (category) =>
@@ -39,11 +40,15 @@ export const useFilterStore = create((set) => ({
     }),
 
   setPriceRange: (range) => set({ priceRange: range }),
+
+  setSortBy: (value) => set({ sortBy: value }),
+
   resetFilters: () =>
     set({
       selectedCategories: [],
       selectedSizes: [],
       selectedLight: [],
       priceRange: [0, 10000],
+      sortBy: "all",
     }),
 }));
