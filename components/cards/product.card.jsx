@@ -30,9 +30,7 @@ const ProductCard = ({ image, name, tag, price, rating }) => {
           <h2 className="text-sm md:text-base font-semibold text-primary">
             {name}
           </h2>
-          <h2 className="text-gray-400 tracking-wide text-xs  md:text-sm font-semibold">
-            {tag}
-          </h2>
+          <h2 className="text-gray tracking-wide text-xs  md:text-sm">{tag}</h2>
           <p className="text-orange text-lg md:text-xl font-bold mt-3">
             ৳ {price}
           </p>
@@ -58,7 +56,7 @@ const ProductCard = ({ image, name, tag, price, rating }) => {
         <div>
           <Link
             href={"/"}
-            className="bg-[#7A9B57] text-white w-full text-base py-4 xl:py-5 cursor-pointer bottom-0 text-center absolute font-semibold tracking-wider rounded-b-2xl"
+            className="bg-light-green text-white w-full text-base py-4 xl:py-5 cursor-pointer bottom-0 text-center absolute font-semibold tracking-wider rounded-b-2xl"
           >
             View Details
           </Link>
