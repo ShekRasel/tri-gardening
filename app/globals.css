@@ -11,6 +11,8 @@
   --black: #000000;
   --white: #ffffff;
   --orange: #cc7722;
+  --light-white: #f3f3f3;
+  --gray: #6a7282;
 }
 
 @theme inline {
@@ -26,6 +28,8 @@
   --color-black: var(--black);
   --color-white: var(--white);
   --color-orange: var(--orange);
+  --color-light-white: var(--light-white);
+  --color-gray: var(--gray);
 }
 
 /* @media (prefers-color-scheme: dark) {
