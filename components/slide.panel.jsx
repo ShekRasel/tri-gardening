@@ -8,6 +8,7 @@ import { RxCross2 } from "react-icons/rx";
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { CgProfile } from "react-icons/cg";
 import { IoCall } from "react-icons/io5";
+import CartBadge from "./cart.badge";
 
 const SlidePanel = ({ links }) => {
   const [openSlidePanel, setIsOpenSlidePanel] = useState(false);
@@ -67,9 +68,11 @@ const SlidePanel = ({ links }) => {
             <IoCall />
             <span>Call Now</span>
           </button>
-          <Link href={"/cart"} onClick={closeSlidePanel}>
-            <PiShoppingCartSimpleFill className="text-primary" size={23} />
-          </Link>
+
+          {/* cart badge */}
+          <div onClick={closeSlidePanel}>
+            <CartBadge className="text-primary" />
+          </div>
 
           {/* user profile/dashboard */}
           <Link href={"/dashboard"} onClick={closeSlidePanel}>

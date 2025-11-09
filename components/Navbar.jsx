@@ -5,7 +5,7 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 import { CgProfile } from "react-icons/cg";
 import { IoCall } from "react-icons/io5";
 import SlidePanel from "./slide.panel";
-import CartBadge from "./cart.bedge";
+import CartBadge from "./cart.badge";
 
 const Navbar = () => {
   const links = [
@@ -70,7 +70,7 @@ const Navbar = () => {
         </div>
 
         {/* cart */}
-        <CartBadge />
+        <CartBadge className="hidden lg:block text-white" />
 
         {/* user profile/dashboard */}
         <Link href={"/"} className="hidden lg:block">
