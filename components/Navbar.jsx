@@ -24,10 +24,15 @@ const Navbar = () => {
       name: "Blog",
       path: "/blog",
     },
+    // {
+    //   id: 4,
+    //   name: "Plant Clinic",
+    //   path: "/plant-clinic",
+    // },
     {
       id: 4,
-      name: "Plant Clinic",
-      path: "/plant-clinic",
+      name: "About",
+      path: "/about",
     },
   ];
 

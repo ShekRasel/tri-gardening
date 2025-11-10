@@ -4,13 +4,14 @@ import PrimaryButton from "./ui/static-buttons/primary.button";
 
 const Hero = () => {
   return (
-    <div className="relative h-[300px] md:h-[500px] 2xl:h-[650px] text-white mt-15 lg:mt-18">
+    <div className="relative h-[300px] md:h-[450px] 2xl:h-[550px] text-white mt-15 lg:mt-18">
       <Image
         src={"/images/hero-image.jpg"}
-        fill
+        height={1000}
+        width={1000}
         alt="hero-image"
         priority
-        className="object-"
+        className="h-full w-full"
       />
       <div className="absolute  left-8 top-1/2 -translate-y-1/2 md:left-10 2xl:left-44 space-y-4">
         <h1 className="text-2xl md:text-3xl 2xl:text-4xl font-semibold">
