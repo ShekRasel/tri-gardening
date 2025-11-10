@@ -6,54 +6,18 @@ import { allProducts } from "../../../../helpers/helper";
 import { AddToCart } from "../../../../components/ui/buttons/add.to.cart.button";
 import QuantitySelector from "../../../../components/quantity.selector";
 import { useParams } from "next/navigation";
+import { recommendedProducts } from "../../../../data/recomonded-products/data";
+import { productDescription } from "../../../../data/others/data";
+import { RiArrowDownSLine } from "react-icons/ri";
+import { relatedProducts } from "../../../../data/related-products/data";
+import ProductCard from "../../../../components/cards/product.card";
 
 const ProductDetails = () => {
   const data = useParams();
   const product = allProducts.find((item) => item.id.toString() === data.id);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-
-  // Mock description since it's not in your current data
-  const productDescription =
-    "গোল্ডেন পাথোস (Golden Pothos / Epipremnum aureum) ঘর সাজানোর জন্য অন্যতম সেরা ও সহজে পরিচর্যা করা যায় এমন ইনডোর প্ল্যান্ট। এর হৃদয় আকৃতির ";
-
-  // Mock "You may also like" products
-  const recommendedProducts = [
-    {
-      id: 2,
-      image: "/images/all-products/Snake Plant.avif",
-      name: "Snake Plant",
-      price: "1500 - 2800",
-      tag: "Indoor Plant",
-    },
-    {
-      id: 3,
-      image: "/images/all-products/Lavender.avif",
-      name: "Fiddle Leaf Fig",
-      price: "3200 - 4500",
-      tag: "Indoor Plant",
-    },
-    {
-      id: 4,
-      image: "/images/all-products/Bamboo plant.avif",
-      name: "Golden Pothos",
-      price: "800 - 1800",
-      tag: "Climbing Plant",
-    },
-    {
-      id: 5,
-      image: "/images/all-products/Snake Plant.avif",
-      name: "Snake Plant",
-      price: "1500 - 2800",
-      tag: "Indoor Plant",
-    },
-    {
-      id: 6,
-      image: "/images/all-products/Lavender.avif",
-      name: "Fiddle Leaf Fig",
-      price: "3200 - 4500",
-      tag: "Decorative Plant",
-    },
-  ];
+  const [isExpanded, setIsExpanded] = useState(false);
+  const toggleDescription = () => setIsExpanded(!isExpanded);
 
   const priceRange = product.price;
   const highestPrice = priceRange.includes("-")
@@ -73,11 +37,11 @@ const ProductDetails = () => {
   return (
     <div className="min-h-screen bg-light-white py-8 responsive mt-16 ">
       <div className="flex flex-col lg:flex-row gap-6 justify-evenly">
-        <div className="flex flex-col md:flex-row gap-10">
+        <div className="flex flex-col md:flex-row gap-10 lg:w-4/5">
           {/* Product Image Section */}
-          <div className="md:w-5/6">
-            <div className="rounded-2xl">
-              <div className="aspect-square relative rounded-xl overflow-hidden ">
+          <div className="md:w-1/2">
+            <div className="rounded-2xl ">
+              <div className=" relative rounded-xl overflow-hidden h-[360px]">
                 <Image
                   src={product.image}
                   fill
@@ -87,37 +51,12 @@ const ProductDetails = () => {
                 />
               </div>
               {/* Additional images can be added here */}
-              <div className="grid grid-cols-3 gap-6 mt-4">
-                <div className="aspect-square relative rounded-lg overflow-hidden">
-                  <Image
-                    src={product.image}
-                    fill
-                    alt={`${product.name} thumbnail 1`}
-                    className="object-cover"
-                  />
-                </div>
-                <div className="aspect-square relative rounded-lg overflow-hidden">
-                  <Image
-                    src={product.image}
-                    fill
-                    alt={`${product.name} thumbnail 2`}
-                    className="object-cover"
-                  />
-                </div>
-                <div className="aspect-square relative rounded-lg overflow-hidden">
-                  <Image
-                    src={product.image}
-                    fill
-                    alt={`${product.name} thumbnail 3`}
-                    className="object-cover"
-                  />
-                </div>
-              </div>
+              <ImageSection product={product} />
             </div>
           </div>
 
           {/* Product Details Section */}
-          <div className="">
+          <div className="md:w-1/2">
             <div className="rounded-2xl h-fit">
               {/* Product Name */}
               <h1 className="text-2xl font-bold text-black mb-2">
@@ -151,7 +90,7 @@ const ProductDetails = () => {
 
               {/* Description */}
               <div className="mb-6">
-                <p className="text-primary text-sm leading-relaxed">
+                <p className="text-primary text-sm leading-relaxed line-clamp-2">
                   {productDescription}
                 </p>
               </div>
@@ -185,7 +124,7 @@ const ProductDetails = () => {
         </div>
 
         {/* You May Also Like Section */}
-        <div className="max-w-52 md:hidden lg:block">
+        <div className="max-w-52 md:hidden lg:block lg:w-2/5">
           <div className="bg-white rounded-2xl shadow p-4">
             <h2 className="text-md font-semibold text-black mb-2">
               You May Also Like
@@ -218,8 +157,98 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+
+      {/* full description section */}
+      <div className="bg-white shadow mt-10 py-4 px-6 rounded-md">
+        <h1 className="text-xl font-bold text-primary">Descriptions</h1>
+        <p className="text-primary leading-relaxed text-xs md:text-sm lg:text-base text-justify mt-3">
+          {isExpanded
+            ? productDescription
+            : productDescription.slice(0, 180) + "..."}
+        </p>
+
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={toggleDescription}
+            className="text-primary font-medium flex items-center gap-2 cursor-pointer"
+          >
+            {isExpanded ? (
+              <span className="rotate-180">
+                <RiArrowDownSLine size={38} />
+              </span>
+            ) : (
+              <span>
+                <RiArrowDownSLine size={38} />
+              </span>
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* related product section */}
+      <RelatedProduct />
     </div>
   );
 };
 
 export default ProductDetails;
+
+// =============================dummy image=======================================//
+// =============================dummy image=======================================//
+const ImageSection = ({ product }) => {
+  return (
+    <div className="grid grid-cols-4 gap-6 mt-4">
+      <div className="aspect-square relative rounded-lg overflow-hidden">
+        <Image
+          src={product.image}
+          fill
+          alt={`${product.name} thumbnail 1`}
+          className="object-cover"
+        />
+      </div>
+      <div className="aspect-square relative rounded-lg overflow-hidden">
+        <Image
+          src={product.image}
+          fill
+          alt={`${product.name} thumbnail 2`}
+          className="object-cover"
+        />
+      </div>
+      <div className="aspect-square relative rounded-lg overflow-hidden">
+        <Image
+          src={product.image}
+          fill
+          alt={`${product.name} thumbnail 3`}
+          className="object-cover"
+        />
+      </div>
+      <div className="aspect-square relative rounded-lg overflow-hidden">
+        <Image
+          src={product.image}
+          fill
+          alt={`${product.name} thumbnail 3`}
+          className="object-cover"
+        />
+      </div>
+    </div>
+  );
+};
+
+// =============================related product section ===================================//
+// ============================related product section =====================================//
+
+const RelatedProduct = () => {
+  return (
+    <div className="mt-10">
+      <h1 className="text-xl md:text-3xl text-primary font-bold text-center">
+        Related Products
+      </h1>
+
+      <div className="grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-5 lg:gap-6 mt-6 xl:gap-12">
+        {relatedProducts.map((product) => (
+          <ProductCard key={product.id} item={product} />
+        ))}
+      </div>
+    </div>
+  );
+};
