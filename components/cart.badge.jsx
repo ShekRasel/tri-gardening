@@ -13,11 +13,11 @@ const CartBadge = ({ className }) => {
       <Link href="/cart" className="relative">
         {/* Only show badge if there’s at least one item */}
         {getTotalItems() > 0 && (
-          <span
-            className={` text-sm rounded-full absolute -top-4 right-0 ${className}`}
+          <p
+            className={` text-xs h-5 w-5 pt-0.5 bg-orange text-center rounded-full absolute -top-4 -right-2 ${className}`}
           >
             {getTotalItems()}
-          </span>
+          </p>
         )}
         <PiShoppingCartSimpleFill className={`${className}`} size={23} />
       </Link>
