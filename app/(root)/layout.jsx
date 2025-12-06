@@ -1,14 +1,14 @@
 import Footer from "@/components/root/Footer";
 import Navbar from "@/components/root/Navbar";
-import React from "react";
+import React, { Fragment } from "react";
 
 const layout = ({ children }) => {
   return (
-    <div>
+    <Fragment>
       <Navbar />
-      {children}
+      <main className="pt-16 lg:pt-18 min-h-screen">{children}</main>
       <Footer />
-    </div>
+    </Fragment>
   );
 };
 

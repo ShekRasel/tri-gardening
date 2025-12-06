@@ -1,10 +1,9 @@
-import { Poppins } from "next/font/google";
-import { Toaster } from "react-hot-toast";
+import { Roboto } from "next/font/google";
 import "./globals.css";
+import ToasterClient from "@/components/shared/toaster.client";
 
-const poppin = Poppins({
+const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["300"],
 });
 
 export const metadata = {
@@ -15,26 +14,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${poppin.className}  antialiased`}>
+      <body className={`${roboto.className}  antialiased`}>
         {children}
-
-        <Toaster
-          position="top-center"
-          toastOptions={{
-            duration: 3000,
-            style: {
-              background: "#363636",
-              color: "#fff",
-            },
-            success: {
-              duration: 3000,
-              theme: {
-                primary: "green",
-                secondary: "black",
-              },
-            },
-          }}
-        />
+        <ToasterClient />
       </body>
     </html>
   );

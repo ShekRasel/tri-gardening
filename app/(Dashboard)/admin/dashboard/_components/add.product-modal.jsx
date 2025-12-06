@@ -3,13 +3,48 @@ import { RxCross2 } from "react-icons/rx";
 import GeneralInfo from "@/app/(Dashboard)/admin/dashboard/_components/add.general-info";
 import AddVariants from "@/app/(Dashboard)/admin/dashboard/_components/add.variants";
 import AddCategories from "@/app/(Dashboard)/admin/dashboard/_components/add.categories";
+import ProductType from "@/app/(Dashboard)/admin/dashboard/_components/add.product-types";
+import { useState } from "react";
+import { createSlug } from "@/helpers/helper";
+import Button from "@/components/shared/buttons/button";
+import { createProduct } from "@/app/(Dashboard)/admin/dashboard/server-actions/product.action";
 
 const AddProductModal = ({ setModal, modal }) => {
-  const { handleSubmit, control, watch } = useForm();
+  const { handleSubmit, control, watch, reset } = useForm();
+  const [variantsImages, setVariantImages] = useState([]);
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const name = data.product_name;
+    const slug = createSlug(data.product_name);
+    const rating = Number(data.rating);
+    const description = data.description;
+    const popular = data.Popular === "yes";
+    const variants = data.variants || [];
+    const category = data.category;
+    const images = variantsImages.flatMap((variant) =>
+      (variant || []).map((img) => img?.link).filter(Boolean)
+    );
+
+    console.log(images);
+
+    const payload = {
+      name,
+      slug,
+      rating,
+      description,
+      popular,
+      variants,
+      images,
+      category,
+    };
+
+    const { message } = await createProduct(payload);
+    console.log("here");
+    reset();
+    setVariantImages([]);
+    alert(message);
   };
+
   return (
     <div
       className={`shadow-lg w-full absolute top-0 rounded-md p-4 bg-white transition-all duration-500 ${
@@ -35,16 +70,17 @@ const AddProductModal = ({ setModal, modal }) => {
             <GeneralInfo control={control} />
             {/* add category and others info */}
             <AddCategories control={control} watch={watch} />
+            {/* types */}
+            <ProductType control={control} />
           </div>
           {/* adding variants */}
-          <AddVariants control={control} />
+          <AddVariants
+            control={control}
+            variantsImages={variantsImages}
+            setVariantImages={setVariantImages}
+          />
         </div>
-        <button
-          type="submit"
-          className="px-4 py-2 rounded-md mt-4 text-white bg-light-green"
-        >
-          Submit
-        </button>
+        <Button>Submit</Button>
       </form>
     </div>
   );

@@ -5,17 +5,17 @@ export const useFilterStore = create((set) => ({
   selectedCategories: [],
   selectedSizes: [],
   selectedLight: [],
-  priceRange: [0, 10000],
+  priceRange: [0, 2000],
   sortBy: "all",
 
   // actions
-  toggleCategory: (category) =>
+  toggleCategory: (categoryId) =>
     set((state) => {
-      const alreadySelected = state.selectedCategories.includes(category);
+      const alreadySelected = state.selectedCategories.includes(categoryId);
       return {
         selectedCategories: alreadySelected
-          ? state.selectedCategories.filter((c) => c !== category)
-          : [...state.selectedCategories, category],
+          ? state.selectedCategories.filter((c) => c !== categoryId)
+          : [...state.selectedCategories, categoryId],
       };
     }),
 
@@ -29,16 +29,6 @@ export const useFilterStore = create((set) => ({
       };
     }),
 
-  toggleLight: (light) =>
-    set((state) => {
-      const alreadySelected = state.selectedLight.includes(light);
-      return {
-        selectedLight: alreadySelected
-          ? state.selectedLight.filter((l) => l !== light)
-          : [...state.selectedLight, light],
-      };
-    }),
-
   setPriceRange: (range) => set({ priceRange: range }),
 
   setSortBy: (value) => set({ sortBy: value }),
@@ -47,7 +37,6 @@ export const useFilterStore = create((set) => ({
     set({
       selectedCategories: [],
       selectedSizes: [],
-      selectedLight: [],
       priceRange: [0, 10000],
       sortBy: "all",
     }),

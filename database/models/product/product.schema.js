@@ -17,13 +17,7 @@ const ProductSchema = new Schema(
 
     description: String,
 
-    variants: [
-      {
-        label: String,
-        price: Number,
-        stock: Number,
-      },
-    ],
+    variants: [{ label: String, price: Number, stock: Number }],
 
     rating: Number,
     popular: Boolean,

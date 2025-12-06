@@ -14,7 +14,7 @@ const CartPage = () => {
   const deliveryCharge = 100;
 
   const handleQuantityChange = (id, change) => {
-    const item = items.find((item) => item.id === id);
+    const item = items.find((item) => item._id === id);
     if (item) {
       const newQuantity = item.quantity + change;
       if (newQuantity > 0) {
@@ -59,13 +59,13 @@ const CartPage = () => {
           </div>
         </div>
       ) : (
-        <div className="mt-2 flex flex-col lg:flex-row gap-4 xl:gap-8">
+        <div className="mt-2 flex flex-col lg:flex-row gap-4 xl:gap-8 items-start">
           <div className="bg-white w-full rounded-md shadow">
             {items.map((item) => (
-              <div className="flex justify-between shadow p-4" key={item.id}>
+              <div className="flex justify-between shadow p-4" key={item._id}>
                 <div className="flex gap-3 md:gap-4">
                   <Image
-                    src={item.image}
+                    src={item.images?.[0]}
                     height={32}
                     width={72}
                     alt="items-image"
@@ -89,14 +89,14 @@ const CartPage = () => {
                     <div className="border border-gray px-4 py-1 rounded-md flex gap-5 items-center">
                       <span
                         className="cursor-pointer"
-                        onClick={() => handleQuantityChange(item.id, -1)}
+                        onClick={() => handleQuantityChange(item._id, -1)}
                       >
                         <AiOutlineMinus />
                       </span>
                       <span>{item.quantity}</span>
                       <span
                         className="cursor-pointer"
-                        onClick={() => handleQuantityChange(item.id, 1)}
+                        onClick={() => handleQuantityChange(item._id, 1)}
                       >
                         <AiOutlinePlus />
                       </span>
@@ -106,7 +106,7 @@ const CartPage = () => {
                     </h1>
                     <span
                       className="cursor-pointer"
-                      onClick={() => removeCart(item.id)}
+                      onClick={() => removeCart(item._id)}
                     >
                       <RxCross2 size={23} className="text-red-500" />
                     </span>

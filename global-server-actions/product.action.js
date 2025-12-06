@@ -1,8 +1,12 @@
-import { connect_db } from "@/database/db-config/mongoose";
-import { Product } from "@/database/models/product/product.schema";
-import { NextResponse } from "next/server";
+"use server";
 
-export const GET = async () => {
+import { connect_db } from "@/database/config/mongoose";
+import { Product } from "@/database/models/product/product.schema";
+import { cacheTag } from "next/cache";
+
+export const getProducts = async () => {
+  "use cache";
+  cacheTag("product");
   await connect_db();
 
   const products = await Product.aggregate([
@@ -22,14 +26,16 @@ export const GET = async () => {
         as: "categories",
       },
     },
+
     {
       $project: {
+        _id: 1,
         name: 1,
         slug: 1,
         images: 1,
         types: 1,
-        variants: 1,
         description: 1,
+        variants: 1,
         rating: 1,
         popular: 1,
         categories: 1,
@@ -38,23 +44,13 @@ export const GET = async () => {
   ]);
 
   if (products) {
-    return NextResponse.json(
-      {
-        message: "All product find seccussfully",
-        data: products,
-      },
-      {
-        status: 200,
-      }
-    );
+    return {
+      message: "Product find successfully.",
+      data: JSON.parse(JSON.stringify(products)),
+    };
+  } else {
+    return {
+      message: "products not found",
+    };
   }
-
-  return NextResponse.json(
-    {
-      message: "No products found",
-    },
-    {
-      status: 400,
-    }
-  );
 };

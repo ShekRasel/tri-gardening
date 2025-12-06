@@ -4,13 +4,13 @@ import { NextResponse } from "next/server";
 
 export const GET = async () => {
   await connect_db();
-  const allCategory = await Category.find();
+  const allCategories = await Category.find();
 
   if (allCategory.length > 0) {
     return NextResponse.json(
       {
         message: "Categories find successfully",
-        data: allCategory,
+        data: allCategories,
       },
       {
         status: 200,

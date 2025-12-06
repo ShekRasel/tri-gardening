@@ -7,11 +7,11 @@ export const useCartStore = create(
     (set, get) => ({
       items: [],
 
-      addCart: (item, quantity = 1) => {
+      addCart: (item, quantity = 1, selectedPrice) => {
         set((state) => {
           const validItems = state.items.filter(Boolean);
           const existingItem = validItems.find(
-            (cartItem) => cartItem.id === item.id
+            (cartItem) => cartItem._id === item._id
           );
 
           const finalQuantity = item.quantity || quantity;
@@ -22,10 +22,11 @@ export const useCartStore = create(
             );
             return {
               items: state.items.map((cartItem) =>
-                cartItem.id === item.id
+                cartItem._id === item._id
                   ? {
                       ...cartItem,
                       quantity: cartItem.quantity + finalQuantity,
+                      price: selectedPrice,
                     }
                   : cartItem
               ),
@@ -38,6 +39,7 @@ export const useCartStore = create(
                 {
                   ...item,
                   quantity: finalQuantity,
+                  price: selectedPrice,
                 },
               ],
             };
@@ -46,9 +48,9 @@ export const useCartStore = create(
       },
 
       removeCart: (id) => {
-        const item = get().items.find((item) => item.id === id);
+        const item = get().items.find((item) => item._id === id);
         set((state) => ({
-          items: state.items.filter((item) => item.id !== id),
+          items: state.items.filter((item) => item._id !== id),
         }));
 
         if (item) {
@@ -62,10 +64,10 @@ export const useCartStore = create(
           return;
         }
 
-        const item = get().items.find((item) => item.id === id);
+        const item = get().items.find((item) => item._id === id);
         set((state) => ({
           items: state.items.map((item) =>
-            item.id === id ? { ...item, quantity } : item
+            item._id === id ? { ...item, quantity } : item
           ),
         }));
 
@@ -95,7 +97,7 @@ export const useCartStore = create(
       },
 
       getItemQuantity: (id) => {
-        const item = get().items.find((item) => item.id === id);
+        const item = get().items.find((item) => item._id === id);
         return item ? item.quantity : 0;
       },
     }),

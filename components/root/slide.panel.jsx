@@ -33,7 +33,13 @@ const SlidePanel = ({ links }) => {
       >
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <Image src={"/logos/logo.png"} alt="logo" width={48} height={42} />
+            <Image
+              src={"/logos/logo.png"}
+              alt="logo"
+              width={48}
+              height={48}
+              className="h-auto"
+            />
             <h2 className="font-semibold text-primary tracking-wider hidden sm:block">
               TriGardening
             </h2>

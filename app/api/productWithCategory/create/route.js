@@ -1,4 +1,4 @@
-import { connect_db } from "@/database/db-config/mongoose";
+import { connect_db } from "@/database/config/mongoose";
 import { ProductAndCategory } from "@/database/models/category/product-category.schema";
 import { NextResponse } from "next/server";
 

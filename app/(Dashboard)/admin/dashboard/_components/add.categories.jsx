@@ -1,53 +1,39 @@
+import { createCategory } from "@/app/(Dashboard)/admin/dashboard/server-actions/categories.action";
 import Button from "@/components/shared/buttons/button";
 import TextInput from "@/components/shared/input/text.input";
 import SelectInput from "@/components/shared/input/text.select-input";
-import { APP_URL, createSlug } from "@/helpers/helper";
+import { getCategories } from "@/global-server-actions/categories.action";
+import { createSlug } from "@/helpers/helper";
 import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 
 const AddCategories = ({ control, watch }) => {
-  const [cat, setCat] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [newInput, setNewInput] = useState(false);
+
   const handleShowInput = () => {
     setNewInput(true);
   };
 
   const handleHideInput = () => setNewInput(false);
 
-  const createCategory = async () => {
+  const handleCreateCategory = async () => {
     const category_Name = watch("new-category");
     if (!category_Name) return;
     const slug = createSlug(category_Name);
     const categoryData = { name: category_Name, slug };
 
-    try {
-      const res = await fetch("/api/category/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application-json",
-        },
-        body: JSON.stringify(categoryData),
-      });
+    const { data: category, message } = await createCategory(categoryData);
 
-      const resData = await res.json();
-      console.log(resData.data.name);
-      setCat((prev) => [...prev, resData.data.name]);
-    } catch (error) {
-      alert(error);
-    }
+    category && setCategories((prev) => [...prev, category.name]);
+
+    alert(message);
   };
 
   useEffect(() => {
-    (async function fetchData() {
-      try {
-        const res = await fetch(`/api/category/all`);
-        const resData = await res.json();
-        const catData = resData.data;
-
-        setCat(catData.map((cat) => cat.name));
-      } catch (error) {
-        console.log(error);
-      }
+    (async () => {
+      const { data: allCategories } = await getCategories();
+      allCategories && setCategories(allCategories.map((cat) => cat.name));
     })();
   }, []);
 
@@ -55,12 +41,12 @@ const AddCategories = ({ control, watch }) => {
     <div className="border border-light-gray p-2 md:p-4 rounded-xl space-y-4">
       <h1 className="text-sm font-semibold">Categorization</h1>
       <div className="flex justify-between items-start">
-        {cat.length > 0 && (
+        {categories.length > 0 && (
           <SelectInput
             control={control}
             name="category"
             label={"Select Category"}
-            values={cat}
+            values={categories}
             rules={"Choose category"}
           />
         )}
@@ -77,7 +63,7 @@ const AddCategories = ({ control, watch }) => {
             />
 
             <div className="flex items-center gap-2">
-              <Button type="button" callback={createCategory}>
+              <Button type="button" callback={handleCreateCategory}>
                 Add
               </Button>
               <Button type="button" callback={handleHideInput}>
