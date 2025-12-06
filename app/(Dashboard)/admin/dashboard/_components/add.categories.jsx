@@ -1,7 +1,7 @@
 import Button from "@/components/shared/buttons/button";
 import TextInput from "@/components/shared/input/text.input";
 import SelectInput from "@/components/shared/input/text.select-input";
-import { APP_URL } from "@/helpers/helper";
+import { APP_URL, createSlug } from "@/helpers/helper";
 import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 
@@ -17,11 +17,11 @@ const AddCategories = ({ control, watch }) => {
   const createCategory = async () => {
     const category_Name = watch("new-category");
     if (!category_Name) return;
-    const slug = category_Name.toLowerCase().trim().replace(/\s+/g, "-");
+    const slug = createSlug(category_Name);
     const categoryData = { name: category_Name, slug };
 
     try {
-      const res = await fetch(`${APP_URL}/api/category/create`, {
+      const res = await fetch("/api/category/create", {
         method: "POST",
         headers: {
           "Content-Type": "application-json",
@@ -40,7 +40,7 @@ const AddCategories = ({ control, watch }) => {
   useEffect(() => {
     (async function fetchData() {
       try {
-        const res = await fetch(`${APP_URL}/api/category/all`);
+        const res = await fetch(`/api/category/all`);
         const resData = await res.json();
         const catData = resData.data;
 
