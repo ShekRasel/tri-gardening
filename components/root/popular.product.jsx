@@ -2,10 +2,9 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./cards/product.card";
 import { MdOutlineNavigateNext, MdNavigateBefore } from "react-icons/md";
-import { popularProducts } from "../../data/popular-product/data";
 
-const PopularProduct = () => {
-  const maxCount = popularProducts.length;
+const PopularProduct = ({ products }) => {
+  const maxCount = products.length;
   const [count, setCount] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(1);
   useEffect(() => {
@@ -55,19 +54,19 @@ const PopularProduct = () => {
         </p>
 
         <div className="flex overflow-hidden py-4">
-          {popularProducts.map((plant, id) => (
+          {products.map((product) => (
             <div
-              key={id}
+              key={product._id}
               className={`min-w-full sm:min-w-[50%] lg:min-w-[25%] transition-all ease-out duration-500 px-8 lg:px-4`}
               style={{ transform: `translateX(-${count * 100}%)` }}
             >
-              <ProductCard item={plant} />
+              <ProductCard product={product} />
             </div>
           ))}
         </div>
       </div>
 
-      <div className="flex justify-between px-1 2xl:px-20 w-full absolute top-1/2">
+      <div className="flex justify-between px-2 2xl:px-20 w-full absolute top-1/2">
         <button
           className="border-primary rounded-full cursor-pointer border-2"
           onClick={goLeft}

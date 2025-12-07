@@ -8,6 +8,7 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 const ProductInfo = ({ product }) => {
   const available = product.variants[0]?.stock > 0;
   const [price, setPrice] = useState(product.variants[0]?.price);
+  const [quantity, setQuantity] = useState(1);
   return (
     <div className="">
       <h1 className="text-lg md:text-xl font-semibold">{product.name}</h1>
@@ -20,8 +21,8 @@ const ProductInfo = ({ product }) => {
               <span>In Stock</span>
             </p>
           ) : (
-            <p className="text-red-500">
-              <span className="h-2 w-2 rounded-full bg-red-500 inline-block" />
+            <p className="text-red-500 flex gap-2 items-center">
+              <span className="h-5 w-5 rounded-full bg-red-500 inline-block" />
               <span>Out of Stock</span>
             </p>
           )}
@@ -33,7 +34,7 @@ const ProductInfo = ({ product }) => {
           {product.variants.map((variant, index) => (
             <div
               key={index}
-              className={`border rounded-md p-3 px-6 cursor-pointer ${
+              className={`border rounded-md  py-1.5 px-6 cursor-pointer ${
                 price === variant.price
                   ? "border-light-green bg-lime-100"
                   : "border-light-gray"
@@ -51,7 +52,7 @@ const ProductInfo = ({ product }) => {
       <div className="mt-4 flex justify-between items-center">
         {/* price */}
         {price && (
-          <h1 className="text-xl md:text-3xl text-orange font-semibold">
+          <h1 className="text-xl md:text-2xl text-orange font-semibold">
             {" "}
             ৳ - {price}
           </h1>
@@ -63,11 +64,19 @@ const ProductInfo = ({ product }) => {
             <p className="text-primary">Quantity</p>
             <div className="border flex gap-3 items-center px-4 py-1.5 rounded-md border-light-gray">
               <button className="text-light-green cursor-pointer">
-                <FiMinus size={23} />
+                <FiMinus
+                  size={20}
+                  onClick={() =>
+                    setQuantity((prev) => (prev < 2 ? 1 : prev - 1))
+                  }
+                />
               </button>
-              <p>1</p>
-              <button className="text-light-green cursor-pointer">
-                <FiPlus size={23} />
+              <p>{quantity}</p>
+              <button
+                className="text-light-green cursor-pointer"
+                onClick={() => setQuantity((prev) => prev + 1)}
+              >
+                <FiPlus size={20} />
               </button>
             </div>
           </div>
@@ -77,7 +86,13 @@ const ProductInfo = ({ product }) => {
         </div>
       </div>
       {/* add to cart */}
-      <AddToCart className={"w-full"} product={product} selectedPrice={price}>
+      <AddToCart
+        className={"w-full"}
+        product={product}
+        selectedPrice={price}
+        quantity={quantity}
+        disabled={!available}
+      >
         Add to Cart
       </AddToCart>
     </div>

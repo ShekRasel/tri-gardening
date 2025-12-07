@@ -21,6 +21,7 @@ const ProductSchema = new Schema(
 
     rating: Number,
     popular: Boolean,
+    special: Boolean,
   },
   {
     timestamps: true,

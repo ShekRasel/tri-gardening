@@ -4,7 +4,7 @@ import PrimaryButton from "./ui/static-buttons/primary.button";
 
 const Hero = () => {
   return (
-    <div className="relative h-[300px] md:h-[450px] 2xl:h-[550px] text-white mt-15 lg:mt-18">
+    <div className="relative h-[300px] md:h-[450px] 2xl:h-[550px] text-white">
       <Image
         src={"/images/hero-image.jpg"}
         height={1000}

@@ -19,13 +19,12 @@ const AddProductModal = ({ setModal, modal }) => {
     const rating = Number(data.rating);
     const description = data.description;
     const popular = data.Popular === "yes";
+    const special = data.special === "yes";
     const variants = data.variants || [];
     const category = data.category;
     const images = variantsImages.flatMap((variant) =>
       (variant || []).map((img) => img?.link).filter(Boolean)
     );
-
-    console.log(images);
 
     const payload = {
       name,
@@ -36,10 +35,10 @@ const AddProductModal = ({ setModal, modal }) => {
       variants,
       images,
       category,
+      special,
     };
 
     const { message } = await createProduct(payload);
-    console.log("here");
     reset();
     setVariantImages([]);
     alert(message);

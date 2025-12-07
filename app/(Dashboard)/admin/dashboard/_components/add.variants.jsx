@@ -138,7 +138,7 @@ const AddVariants = ({ control, setVariantImages, variantsImages }) => {
                           multiple: false,
                           maxFiles: 1,
                           singleUploadAutoDestroy: false,
-                          sources: ["local", "camera"],
+                          sources: ["local", "camera", "url"],
                           uploadSignature: undefined,
                           clientAllowedFormats: [
                             "jpg",

@@ -8,8 +8,9 @@ import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const CartPage = () => {
-  const { items, removeCart, updateQuantity, getTotalItems, getTotalPrice } =
-    useCartStore();
+  const { items, removeCart, updateQuantity } = useCartStore();
+  const totalItems = useCartStore((s) => s.totalItems);
+  const totalPrice = useCartStore((s) => s.totalPrice);
 
   const deliveryCharge = 100;
 
@@ -40,7 +41,7 @@ const CartPage = () => {
         </Link>
       </span>
       <p className="text-primary font-semibold text-sm mt-5">
-        {getTotalItems()} Items
+        {totalItems} Items
       </p>
 
       {/* all items */}
@@ -122,9 +123,7 @@ const CartPage = () => {
             </h1>
             <div className="text-sm  pb-4 mt-2 border-b border-light-white px-4 flex justify-between">
               <span>Sub Total</span>{" "}
-              <span className="text-orange font-semibold">
-                ৳ {getTotalPrice()}
-              </span>
+              <span className="text-orange font-semibold">৳ {totalPrice}</span>
             </div>
             <div className="text-sm  pb-4 mt-4 border-b border-light-white px-4 flex justify-between">
               <span>Delivery Charge</span>{" "}
@@ -153,7 +152,7 @@ const CartPage = () => {
                   Total
                 </span>{" "}
                 <span className="text-orange  font-semibold text-base">
-                  ৳ {getTotalPrice() + deliveryCharge}
+                  ৳ {totalPrice + deliveryCharge}
                 </span>
               </div>
               <div className="flex justify-center">

@@ -85,6 +85,13 @@ const AddCategories = ({ control, watch }) => {
         rules={"Choose popular"}
         className={"min-w-24"}
       />
+      <SelectInput
+        control={control}
+        name="special"
+        label={"Special-feature!"}
+        values={["yes", "no"]}
+        className={"min-w-24"}
+      />
       <TextInput
         name="rating"
         label="Rating"
