@@ -2,12 +2,12 @@ const { Schema, models, model } = require("mongoose");
 
 const userRoleSchema = new Schema(
   {
-    user: {
+    userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    role: {
+    roleId: {
       type: Schema.Types.ObjectId,
       ref: "Role",
       required: true,

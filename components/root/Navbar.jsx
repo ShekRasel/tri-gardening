@@ -84,7 +84,7 @@ const Navbar = () => {
         <CartBadge className="hidden lg:block text-white" />
 
         {/* user profile/dashboard */}
-        <Link href={"/"} className="hidden lg:block">
+        <Link href={"/customer/dashboard"} className="hidden lg:block">
           <CgProfile className="text-white" size={23} />
         </Link>
       </div>

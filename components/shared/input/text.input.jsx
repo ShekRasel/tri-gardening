@@ -19,12 +19,13 @@ const TextInput = ({
       required: rules,
     },
   });
+
   return (
     <div className="flex flex-col space-y-1">
       {label && <label className="font-medium text-sm">{label}</label>}
       <input
         type={type}
-        className={`${className} border border-light-gray rounded-md outline-none px-2 py-1 text-sm`}
+        className={`${className} border border-light-gray rounded-md outline-none px-2 py-1 text-sm w-full`}
         placeholder={placeholder}
         {...field}
       />
