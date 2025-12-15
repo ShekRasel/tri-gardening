@@ -16,7 +16,8 @@ const userSchema = new Schema(
       unique: true,
     },
     phoneNumber: {
-      type: Number,
+      type: String,
+      unique: true,
     },
     password: {
       type: String,
@@ -24,7 +25,7 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["customer" || "admin"],
+      enum: ["customer", "admin"],
       default: "customer",
     },
   },

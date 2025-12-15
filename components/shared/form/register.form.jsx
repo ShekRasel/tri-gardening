@@ -2,15 +2,27 @@
 
 import Button from "@/components/shared/buttons/button";
 import TextInput from "@/components/shared/input/text.input";
+import { register } from "@/global-server-actions/auth.action";
+import { redirect } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 const RegisterForm = () => {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit, reset } = useForm();
   const [showPassword, setShowPassword] = useState(false);
 
-  const onSubmit = (data) => {};
+  const onSubmit = async (regData) => {
+    const { message, success } = await register(regData);
+    if (success) {
+      toast.success(message);
+      reset();
+      redirect("/login");
+    } else {
+      toast.error(message);
+    }
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="grid grid-cols-2 gap-2 pb-2">

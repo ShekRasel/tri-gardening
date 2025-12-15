@@ -1,8 +1,7 @@
 import AdminNavbar from "@/components/admin/admin.navbar";
 import AdminSidebar from "@/components/admin/admin.sidebar";
-import React from "react";
 
-const Layout = ({ children }) => {
+const Layout = async ({ children }) => {
   return (
     <div className="h-screen flex flex-col md:flex-row bg-gray-50">
       {/* Sidebar - hidden on mobile, visible on tablet+ */}

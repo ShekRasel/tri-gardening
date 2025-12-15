@@ -1,7 +1,7 @@
-import React from "react";
+import { Fragment } from "react";
 
 const CustomerLayout = ({ children }) => {
-  return <div>{children}</div>;
+  return <Fragment>{children}</Fragment>;
 };
 
 export default CustomerLayout;

@@ -2,26 +2,60 @@
 import bcrypt from "bcryptjs";
 import { connect_db } from "@/database/config/mongoose";
 import { User } from "@/database/models/user/user.schema";
+import {
+  createAccessToken,
+  createRefreshToken,
+  verifyRefreshToken,
+} from "@/helpers/jwt";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 //login
 export const login = async (loginData) => {
   await connect_db();
-  const existUser = await User.findOne({ email: loginData.email });
 
-  if (existUser) {
-    const match = bcrypt.compareSync(loginData.password, existUser.password);
-    if (match) {
-      return {
-        message: "Login Successfull.",
-      };
-    }
+  const user = await User.findOne({ email: loginData.email });
+  if (!user) {
     return {
-      message: "Password is incorrect.",
+      success: false,
+      message: "Please Registration first. Email is unknown",
     };
   }
 
+  const match = bcrypt.compareSync(loginData.password, user.password);
+  if (!match) {
+    return {
+      success: false,
+      message: "Password incorrect.",
+    };
+  }
+
+  const accessToken = createAccessToken({
+    userId: user._id.toString(),
+    role: user.role,
+  });
+
+  const refreshToken = createRefreshToken({
+    userId: user._id.toString(),
+    role: user.role,
+  });
+
+  const cookieStore = await cookies();
+  cookieStore.set({
+    name: "refreshToken",
+    value: refreshToken,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge: 60 * 60 * 24,
+  });
+
   return {
-    message: "Invalid email.",
+    success: true,
+    message: "Login Successfull.",
+    accessToken,
+    redirectTo:
+      user.role === "customer" ? "/customer/dashboard" : "/admin/dashboard",
   };
 };
 
@@ -29,26 +63,61 @@ export const login = async (loginData) => {
 export const register = async (regData) => {
   try {
     await connect_db();
-    const existUser = await User.findOne({ email: regData.email });
 
-    if (!existUser) {
+    const user = await User.findOne({
+      $or: [{ email: regData.email }, { phoneNumber: regData.phoneNumber }],
+    });
+
+    if (!user) {
       const salt = bcrypt.genSaltSync(10);
       const hashPassword = bcrypt.hashSync(regData.password, salt);
-      const newUser = await User.create({ ...regData, password: hashPassword });
+      await User.create({ ...regData, password: hashPassword });
       return {
+        success: true,
         message: "Registration Successfull.",
-        data: JSON.parse(JSON.stringify(newUser)),
       };
     }
 
-    if (existUser) {
+    if (user.email === regData.email) {
       return {
-        message: "User allready exist",
+        success: false,
+        message: "User allready exist, try different email.",
+      };
+    }
+
+    if (user.phoneNumber === regData.phoneNumber) {
+      return {
+        success: false,
+        message: "Number Already used",
       };
     }
   } catch (error) {
     return {
-      message: JSON.parse(JSON.stringify(error.message)),
+      success: false,
+      message: "server error",
     };
   }
+};
+
+//refresh-Access-Token
+export const refreshAccessToken = async () => {
+  const refreshToken = cookies().get("refreshToken")?.value;
+
+  if (!refreshToken) return null;
+
+  try {
+    const decoded = verifyRefreshToken(refreshToken);
+    return createAccessToken({
+      userId: decoded.userId,
+    });
+  } catch (error) {
+    return null;
+  }
+};
+
+//logout
+export const logout = async () => {
+  const cookieStore = await cookies();
+  cookieStore.delete("refreshToken");
+  redirect("/login");
 };

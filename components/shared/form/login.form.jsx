@@ -1,16 +1,30 @@
 "use client";
 import Button from "@/components/shared/buttons/button";
 import TextInput from "@/components/shared/input/text.input";
+import { login } from "@/global-server-actions/auth.action";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
-const LoginForm = () => {
+const LoginForm = ({ next }) => {
   const { control, handleSubmit, reset } = useForm();
   const [showPassword, setShowPassword] = useState(false);
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
+  const router = useRouter();
+
+  const onSubmit = async (loginData) => {
+    const { success, message, accessToken, redirectTo } = await login(
+      loginData
+    );
+    if (success) {
+      sessionStorage.setItem("accessToken", accessToken);
+      reset();
+      toast.success(message);
+      router.push(redirectTo);
+    } else {
+      toast.error(message);
+    }
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -45,6 +59,12 @@ const LoginForm = () => {
             {showPassword ? <IoMdEye size={20} /> : <IoMdEyeOff size={20} />}
           </button>
         </div>
+        <p
+          className="text-xs underline text-right cursor-pointer"
+          onClick={() => next(1)}
+        >
+          Forgot Passowrd?
+        </p>
       </div>
 
       <div className="mt-6 md:mt-10 flex justify-center">

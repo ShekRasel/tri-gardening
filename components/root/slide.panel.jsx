@@ -81,7 +81,7 @@ const SlidePanel = ({ links }) => {
           </div>
 
           {/* user profile/dashboard */}
-          <Link href={"/dashboard"} onClick={closeSlidePanel}>
+          <Link href={"/customer/dashboard"} onClick={closeSlidePanel}>
             <CgProfile className="text-primary" size={23} />
           </Link>
         </div>

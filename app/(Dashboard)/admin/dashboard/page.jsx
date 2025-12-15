@@ -1,7 +1,15 @@
-import React from "react";
+import { logout } from "@/global-server-actions/auth.action";
 
-const AdminDashboard = () => {
-  return <div> Admin Dashboard</div>;
+const AdminDashboard = async () => {
+  return (
+    <div>
+      {" "}
+      Admin Dashboard
+      <p>
+        <button onClick={logout}>Logout</button>
+      </p>
+    </div>
+  );
 };
 
 export default AdminDashboard;
